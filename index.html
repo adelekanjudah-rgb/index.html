@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Chelsea FC Live</title>
+
+<style>
+
+/* =========================
+   BASIC SETTINGS
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f6fc;
+    color: #222;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+nav {
+    background: #034694;
+    color: white;
+
+    padding: 16px 6%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+}
+
+nav h2 {
+    font-size: 23px;
+}
+
+nav ul {
+    list-style: none;
+
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #8ed1ff;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 55vh;
+
+    background:
+    linear-gradient(
+        rgba(0,45,100,0.82),
+        rgba(0,45,100,0.82)
+    ),
+    url("https://upload.wikimedia.org/wikipedia/commons/0/0c/Stamford_Bridge.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    color: white;
+
+    padding: 40px 20px;
+}
+
+.hero h1 {
+    font-size: 58px;
+    margin-bottom: 15px;
+}
+
+.hero span {
+    color: #73c7ff;
+}
+
+.hero p {
+    font-size: 20px;
+    margin: 8px;
+}
+
+
+/* =========================
+   SECTIONS
+========================= */
+
+section {
+    padding: 70px 6%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-title h2 {
+    color: #034694;
+    font-size: 35px;
+    margin-bottom: 8px;
+}
+
+.section-title p {
+    color: #666;
+}
+
+
+/* =========================
+   LIVE MATCH
+========================= */
+
+.live-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.live-card {
+    background: white;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,0.12);
+}
+
+
+/* LIVE HEADER */
+
+.live-header {
+    background: #034694;
+    color: white;
+
+    padding: 18px 22px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.competition {
+    color: #cfe5ff;
+    font-size: 14px;
+}
+
+.live {
+    background: #e00000;
+
+    padding: 7px 13px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.45;
+    }
+
+    100% {
+        opacity: 1;
+    }
+
+}
+
+
+/* SCOREBOARD */
+
+.scoreboard {
+    padding: 35px 20px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 55px;
+
+    text-align: center;
+}
+
+.team {
+    width: 170px;
+}
+
+.team img {
+    width: 85px;
+    height: 85px;
+
+    object-fit: contain;
+
+    margin-bottom: 10px;
+}
+
+.team h3 {
+    color: #034694;
+    font-size: 20px;
+}
+
+.opponent-logo {
+    font-size: 70px;
+    margin-bottom: 10px;
+}
+
+.score {
+    min-width: 130px;
+}
+
+.minute {
+    color: #e00000;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.score h1 {
+    font-size: 55px;
+    margin: 5px;
+}
+
+.score p {
+    color: #e00000;
+    font-weight: bold;
+}
+
+
+/* =========================
+   EVENTS
+========================= */
+
+.events {
+    border-top: 1px solid #ddd;
+    padding: 20px;
+}
+
+.events h3 {
+    color: #034694;
+    margin-bottom: 15px;
+}
+
+.event {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 11px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.buttons {
+    text-align: center;
+    padding: 20px;
+}
+
+.btn {
+    border: none;
+
+    background: #034694;
+
+    color: white;
+
+    padding: 12px 20px;
+
+    margin: 5px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #022f68;
+}
+
+#stats {
+    text-align: center;
+
+    padding: 0 20px 20px;
+
+    color: #034694;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   UPCOMING MATCHES
+========================= */
+
+.matches {
+    display: grid;
+
+    grid-template-columns:
+    repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.match {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,0.08);
+}
+
+.match-date {
+    color: #777;
+
+    font-size: 14px;
+
+    margin-bottom: 15px;
+}
+
+.match-teams {
+    color: #034694;
+
+    font-size: 19px;
+
+    font-weight: bold;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: white;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,0.08);
+}
+
+th {
+    background: #034694;
+
+    color: white;
+
+    padding: 15px;
+}
+
+td {
+    padding: 14px;
+
+    text-align: center;
+
+    border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+    background: #eef5ff;
+}
+
+.chelsea-row {
+    background: #dcecff;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   NEWS
+========================= */
+
+.news {
+    display: grid;
+
+    grid-template-columns:
+    repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.news-card {
+    background: white;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,0.08);
+}
+
+.news-card img {
+    width: 100%;
+
+    height: 190px;
+
+    object-fit: cover;
+}
+
+.news-content {
+    padding: 20px;
+}
+
+.news-content h3 {
+    color: #034694;
+
+    margin-bottom: 10px;
+}
+
+.news-content p {
+    color: #555;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   FAN ZONE
+========================= */
+
+.fan-box {
+    max-width: 650px;
+
+    margin: auto;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    box-shadow:
+    0 5px 20px rgba(0,0,0,0.1);
+
+    text-align: center;
+}
+
+input,
+textarea {
+    width: 100%;
+
+    padding: 13px;
+
+    margin: 8px 0;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+}
+
+textarea {
+    height: 120px;
+
+    resize: vertical;
+}
+
+#fanResult {
+    color: #034694;
+
+    font-weight: bold;
+
+    margin-top: 15px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: #002f6c;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 35px 20px;
+}
+
+footer p {
+    margin-top: 8px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    nav {
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .scoreboard {
+        gap: 10px;
+    }
+
+    .team {
+        width: 100px;
+    }
+
+    .team img {
+        width: 65px;
+        height: 65px;
+    }
+
+    .opponent-logo {
+        font-size: 55px;
+    }
+
+    .score h1 {
+        font-size: 42px;
+    }
+
+    .matches,
+    .news {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 55px 5%;
+    }
+
+}
+
+
+/* SMALL PHONES */
+
+@media (max-width: 450px) {
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .scoreboard {
+        gap: 4px;
+    }
+
+    .team h3 {
+        font-size: 16px;
+    }
+
+    .score h1 {
+        font-size: 35px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<nav>
+
+<h2>💙 CHELSEA LIVE</h2>
+
+<ul>
+
+<li>
+<a href="#home">Home</a>
+</li>
+
+<li>
+<a href="#live">Live</a>
+</li>
+
+<li>
+<a href="#matches">Matches</a>
+</li>
+
+<li>
+<a href="#table">Table</a>
+</li>
+
+<li>
+<a href="#news">News</a>
+</li>
+
+</ul>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero" id="home">
+
+<div>
+
+<h1>
+Chelsea <span>FC</span>
+</h1>
+
+<p>
+💙 The Blues • London • England
+</p>
+
+<p>
+⚽ Scores • Fixtures • News • Fans
+</p>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     LIVE SCORE
+========================= -->
+
+<section id="live">
+
+<div class="section-title">
+
+<h2>🔴 Live Match</h2>
+
+<p>Follow the action</p>
+
+</div>
+
+
+<div class="live-container">
+
+<div class="live-card">
+
+
+<!-- LIVE HEADER -->
+
+<div class="live-header">
+
+<div>
+
+<strong>
+Premier League
+</strong>
+
+<br>
+
+<span class="competition">
+Matchday • Demo Match
+</span>
+
+</div>
+
+<span class="live">
+● LIVE
+</span>
+
+</div>
+
+
+<!-- SCOREBOARD -->
+
+<div class="scoreboard">
+
+
+<!-- CHELSEA -->
+
+<div class="team">
+
+<img
+src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Chelsea_FC.svg"
+alt="Chelsea FC logo">
+
+<h3>
+Chelsea
+</h3>
+
+</div>
+
+
+<!-- SCORE -->
+
+<div class="score">
+
+<div class="minute">
+
+<span id="minute">
+67
+</span>'
+
+</div>
+
+<h1>
+
+<span id="chelseaScore">
+2
+</span>
+
+-
+
+<span id="opponentScore">
+1
+</span>
+
+</h1>
+
+<p>
+LIVE
+</p>
+
+</div>
+
+
+<!-- OPPONENT -->
+
+<div class="team">
+
+<div class="opponent-logo">
+🔴
+</div>
+
+<h3>
+Arsenal
+</h3>
+
+</div>
+
+</div>
+
+
+<!-- MATCH EVENTS -->
+
+<div class="events">
+
+<h3>
+Match Events
+</h3>
+
+
+<div class="event">
+
+<span>
+⚽ Chelsea — Goal
+</span>
+
+<strong>
+23'
+</strong>
+
+</div>
+
+
+<div class="event">
+
+<span>
+⚽ Arsenal — Goal
+</span>
+
+<strong>
+41'
+</strong>
+
+</div>
+
+
+<div class="event">
+
+<span>
+⚽ Chelsea — Goal
+</span>
+
+<strong>
+61'
+</strong>
+
+</div>
+
+
+<div class="event">
+
+<span>
+🟨 Arsenal — Yellow Card
+</span>
+
+<strong>
+65'
+</strong>
+
+</div>
+
+</div>
+
+
+<!-- BUTTONS -->
+
+<div class="buttons">
+
+<button
+class="btn"
+onclick="showStats()">
+
+📊 Match Stats
+
+</button>
+
+
+<button
+class="btn"
+onclick="addGoal()">
+
+⚽ Demo Goal
+
+</button>
+
+</div>
+
+
+<div id="stats"></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     UPCOMING MATCHES
+========================= -->
+
+<section id="matches">
+
+<div class="section-title">
+
+<h2>
+📅 Upcoming Matches
+</h2>
+
+<p>
+Chelsea's next fixtures
+</p>
+
+</div>
+
+
+<div class="matches">
+
+
+<div class="match">
+
+<div class="match-date">
+Saturday • 15:00
+</div>
+
+<div class="match-teams">
+
+Chelsea
+
+<br>
+
+VS
+
+<br>
+
+Liverpool
+
+</div>
+
+</div>
+
+
+<div class="match">
+
+<div class="match-date">
+Wednesday • 20
